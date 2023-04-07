@@ -1,12 +1,8 @@
 import 'dart:async';
 
-import 'package:flutter/foundation.dart';
-import 'package:geolocator_android/geolocator_android.dart';
 import 'package:geolocator_apple/geolocator_apple.dart';
 import 'package:geolocator_platform_interface/geolocator_platform_interface.dart';
 
-export 'package:geolocator_android/geolocator_android.dart'
-    show AndroidSettings, ForegroundNotificationConfig, AndroidResource;
 export 'package:geolocator_apple/geolocator_apple.dart'
     show AppleSettings, ActivityType;
 export 'package:geolocator_platform_interface/geolocator_platform_interface.dart';
@@ -74,18 +70,10 @@ class Geolocator {
     Duration? timeLimit,
   }) {
     late LocationSettings locationSettings;
-    if (defaultTargetPlatform == TargetPlatform.android) {
-      locationSettings = AndroidSettings(
-        accuracy: desiredAccuracy,
-        forceLocationManager: forceAndroidLocationManager,
-        timeLimit: timeLimit,
-      );
-    } else {
-      locationSettings = LocationSettings(
-        accuracy: desiredAccuracy,
-        timeLimit: timeLimit,
-      );
-    }
+    locationSettings = LocationSettings(
+      accuracy: desiredAccuracy,
+      timeLimit: timeLimit,
+    );
 
     return GeolocatorPlatform.instance
         .getCurrentPosition(locationSettings: locationSettings);
